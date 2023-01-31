@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="timMovie">
+	
+	<select id="findName" resultType="theater" parameterType="String">
+		SELECT * FROM THEATERM WHERE THECITY = #{theCity}
+	</select>
+	<select id="findNames" resultType="String" parameterType="String">
+		SELECT THENAME FROM THEATERM WHERE THECITY = #{theCity}
+	</select>
+	
+	<select id="findmovie" resultType="movie" parameterType="moviename">
+		SELECT * FROM MOVIEM WHERE movName=#{movieN1} or movName=#{movieN2} OR movName=#{movieN3} OR movName=#{movieN4} OR movName=#{movieN5} or movName=#{movieN6} OR movName=#{movieN7} OR movName=#{movieN8} OR movName=#{movieN9}
+	</select>
+	
+	<select id="searchmovie" resultType="timemovie" parameterType="timemovie">
+		SELECT * FROM TIMEMOVIEM WHERE TIMTHENAME LIKE '%'||#{timTheName}||'%' AND TIMSTARTDATE LIKE '%'||#{timStartDate}||'%' AND  TIMMOVNAME LIKE '%'||#{timMovName}||'%'
+	</select>
+	
+	<select id="getAllList" resultType="movie">
+		SELECT * FROM MOVIEM
+	</select>
+	
+</mapper>

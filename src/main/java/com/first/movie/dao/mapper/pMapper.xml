@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sql문을 작성해주는 곳 -->
+<mapper namespace="Pay">
+	
+	<select id="payList" parameterType="String" resultType="pay">
+		SELECT * FROM PAYM WHERE PAYID = #{payId}
+	</select>
+
+	<select id="payKakao" parameterType="String" resultType="pay">
+		SELECT * FROM PAYM WHERE PAYID = #{payId}
+	</select>
+	
+	<update id="chunwonSale" parameterType="String">
+		UPDATE PAYM SET PAYMOVPRICE = PAYMOVPRICE - 1000 WHERE PAYID = #{payId}
+	</update>
+	
+	<update id="samchunwonSale" parameterType="String">
+		UPDATE PAYM SET PAYMOVPRICE = PAYMOVPRICE - 3000 WHERE PAYID = #{payId}
+	</update>
+	
+	<update id="ochunwonSale" parameterType="String">
+		UPDATE PAYM SET PAYMOVPRICE = PAYMOVPRICE - 5000 WHERE PAYID = #{payId}
+	</update>
+	
+	<delete id="payDelete" parameterType="String">
+		DELETE FROM PAYM WHERE PAYID = #{payId}
+	</delete>
+	
+	<insert id="payInsert" parameterType="pay">
+		INSERT INTO PAYM VALUES(#{payPic}, #{payId}, #{payName}, #{payMovName}, #{payTheName}, 
+		 #{payTheRoom}, #{payStartDate}, #{payTimStart}, #{paySeatNum}, #{payMovPrice}, #{payLeftList})
+		
+	</insert>
+
+</mapper>

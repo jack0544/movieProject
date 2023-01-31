@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sql문을 작성해주는 곳 -->
+<mapper namespace="Member">
+	
+	<!-- 아이디 중복체크 -->
+	<select id="mCheckId" parameterType="String" resultType="String">
+		SELECT
+		MEMID FROM MEMBERM WHERE MEMID = #{memId}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="mJoin" parameterType="member">
+		INSERT INTO MEMBERM VALUES(#{memId}, #{memPw}, #{memName}, #{memBirth},
+		#{memPhone}, #{memProfileName}, #{memCoupon})
+
+	</insert>
+		
+	<!-- 로그인 -->	
+	<select id="mLogin" parameterType="member" resultType="String">
+		SELECT MEMPW FROM MEMBERM WHERE MEMID = #{memId}
+	</select>
+	
+		<!-- 게시글 개수 확인 -->
+	<select id="mCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBERM
+	</select>
+	
+		<!-- 페이징 처리 -->
+	<select id="mList" parameterType="paging" resultType="member">
+		SELECT * FROM MEMBERLIST WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+<!-- 	<select id="mSearchName" parameterType="search" resultType="member">
+		SELECT * FROM MEMBERLIST WHERE MEMNAME LIKE '%'||#{keyword} ||'%'
+	</select>
+
+	<select id="mSearchId" parameterType="search" resultType="member">
+		SELECT * FROM MEMBERLIST WHERE MEMID LIKE '%'||#{keyword} ||'%'
+	</select>
+
+	<select id="mSearchPhone" parameterType="search" resultType="member">
+		SELECT * FROM MEMBERLIST WHERE MEMPHONE LIKE '%'||#{keyword} ||'%'
+	</select> -->
+
+	
+	<!-- 
+		'%'||#{keyword}||'%' => ||'입력한 값'||'%' => '%입력한값%'
+	 -->
+	
+	<select id="mView" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERM WHERE MEMID = #{memId}
+	</select>
+	
+	<update id="mModify" parameterType="member">
+		UPDATE MEMBERM SET MEMPW = #{memPw} , MEMNAME = #{memName} , MEMBIRTH = #{memBirth}, MEMPHONE = #{memPhone}, MEMPROFILENAME = #{memProfileName}, MEMCOUPON = #{memCoupon}
+		WHERE MEMID = #{memId}
+	</update>
+	
+	<delete id="mDelete" parameterType="String">
+		DELETE FROM MEMBERM WHERE MEMID = #{memId}
+	</delete>
+	
+	<select id="Idimg" parameterType="String" resultType="String">
+		SELECT MEMPROFILENAME FROM MEMBERM WHERE MEMID = #{memId}
+	</select>
+
+</mapper>

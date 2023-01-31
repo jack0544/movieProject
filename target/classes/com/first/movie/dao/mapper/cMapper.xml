@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Comment">
+	
+	<!-- 평점 리스트(movName) -->
+	<select id="commentList" resultType="comment" parameterType="String">
+		SELECT * FROM COMMENTM WHERE COMMOVIE = #{movName} ORDER BY COMGOOD DESC
+	</select>
+	
+	<!-- 평점 리스트(comMovie) -->
+	<select id="cList" resultType="comment" parameterType="String">
+		SELECT * FROM COMMENTM WHERE COMMOVIE = #{comMovie} ORDER BY COMGOOD DESC
+	</select>
+	
+	<!-- 평점 등록 -->
+	<insert id="comWrite" parameterType="comment">
+		INSERT INTO COMMENTM VALUES (COM_SEQ.NEXTVAL , #{comMovie}, #{comWriter}, #{comProfileName}, SYSDATE, #{comContent}, #{comStar}, 0, 0)
+	</insert>
+	
+	<!-- 평점 좋아요 -->
+	<update id="comGood" parameterType="comment">
+		UPDATE COMMENTM SET COMGOOD = COMGOOD + 1 WHERE COMNUM = #{comNum}
+	</update>
+	
+	<!-- 평점 싫어요 -->
+	<update id="comBad" parameterType="comment">
+		UPDATE COMMENTM SET COMBAD = COMBAD + 1 WHERE COMNUM = #{comNum}
+	</update>
+
+	<!-- <insert id="cWrite" parameterType="comment">
+		INSERT INTO COMMENTT VALUES(CMT_SEQ.NEXTVAL ,#{cbNum} , #{cmtWriter}, #{cmtContent}, SYSDATE)
+	</insert> -->
+	
+	<!-- <delete id="cDelete" parameterType="comment">
+		DELETE FROM COMMENTT WHERE CBNUM = #{cbNum} AND CMTNUM = #{cmtNum}
+	</delete> -->
+	
+	<!-- <select id="cSelect" resultType="comment" parameterType="comment">
+		SELECT * FROM COMMENTT WHERE CBNUM = #{cbNum} AND CMTNUM = #{cmtNum}
+	</select> -->
+	
+	<!-- <update id="cModify" parameterType="comment">
+		UPDATE COMMENTT SET CMTCONTENT = #{cmtContent} WHERE CBNUM = #{cbNum} AND CMTNUM = #{cmtNum}
+	</update> -->
+</mapper>

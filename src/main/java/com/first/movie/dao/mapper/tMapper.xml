@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sql문을 작성해주는 곳 -->
+<mapper namespace="Ticket">
+	
+	<select id="ticList" parameterType="String" resultType="ticket">
+		SELECT * FROM TICKETM WHERE TICID = #{ticId}
+	</select>
+	
+	<insert id="ticPay" parameterType="pay">
+		INSERT INTO TICKETM VALUES(#{payPic}, #{payId}, DBMS_RANDOM.RANDOM, #{payName},
+		#{payMovName}, #{payTheName}, #{payTheRoom}, #{payStartDate}, #{payTimStart}, 
+		#{paySeatNum}, #{payMovPrice})
+	</insert>
+
+</mapper>
